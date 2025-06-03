@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
+    "react-redux": "^9.2.0"
+  },
+
+  "scripts": {
+    "build": "npm run build --prefix my-app",
+    "start": "npm run start --prefix my-app",
+    "prestart": "npm run build"
+
+   }
+}
+
