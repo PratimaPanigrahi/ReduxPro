@@ -7,6 +7,8 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.0",
+    "@types/flux": "^3.1.14",
+    "flux": "^4.0.4",
     "next": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -14,7 +16,7 @@
   },
   "devDependencies": {
     "@types/node": "20.2.5",
-    "@types/react": "18.2.37",
+    "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.18",
     "typescript": "^5.3.3"
   }

@@ -1,10 +1,5 @@
-import type { Metadata } from "next";
-import { Counter } from "./components/counter/Counter";
+import FluxImage from "./components/image/picture";
 
 export default function IndexPage() {
-  return <Counter />;
+  return <FluxImage />;
 }
-
-export const metadata: Metadata = {
-  title: "Redux Toolkit",
-};
