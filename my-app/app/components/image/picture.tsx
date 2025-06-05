@@ -1,7 +1,17 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Dispatcher } from "flux";
+
+// Minimal Dispatcher implementation for Flux pattern
+class Dispatcher {
+  private callbacks: ((action: any) => void)[] = [];
+  register(callback: (action: any) => void) {
+    this.callbacks.push(callback);
+  }
+  dispatch(action: any) {
+    this.callbacks.forEach((cb) => cb(action));
+  }
+}
 
 const dispatcher = new Dispatcher();
 const ADD_IMAGE = "ADD_IMAGE";
