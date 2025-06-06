@@ -1,59 +1,45 @@
-// store.js
-import { EventEmitter } from 'events';
+"use client";
+// Example: TodoList.jsx
+import React, { useEffect, useState } from 'react';
+import { todoStore } from './todoStore';
+import { addTodo, removeTodo } from './actions';
 import Dispatcher from './Dispatcher';
-import { ActionTypes } from './actions';
-const CHANGE_EVENT = 'change';
 
-let todos = [];
+// ...rest of your code...
 
-class TodoStore extends EventEmitter {
-  constructor() {
-    super();
+export default function TodoList() {
+  const [todos, setTodos] = useState(todoStore.getAllTodos());
+  const [input, setInput] = useState('');
 
-    // Register the Dispatcher callback
-    Dispatcher.register(this.handleActions.bind(this));
-  }
+  useEffect(() => {
+    const onChange = () => setTodos(todoStore.getAllTodos());
+    todoStore.addChangeListener(onChange);
+    return () => todoStore.removeChangeListener(onChange);
+  }, []);
 
-  getAllTodos() {
-    return todos;
-  }
-
-  addTodo(todo) {
-    todos.push(todo);
-    this.emitChange();
-  }
-
-  removeTodo(id) {
-    todos = todos.filter((todo) => todo.id !== id);
-    this.emitChange();
-  }
-
-  emitChange() {
-    this.emit(CHANGE_EVENT);
-  }
-
-  addChangeListener(callback) {
-    this.on(CHANGE_EVENT, callback);
-  }
-
-  removeChangeListener(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
-  }
-
-  handleActions(action) {
-    switch (action.type) {
-      case ActionTypes.ADD_TODO:
-        this.addTodo(action.todo);
-        break;
-      case ActionTypes.REMOVE_TODO:
-        this.removeTodo(action.id);
-        break;
-      default:
-        // Do nothing
+  const handleAdd = () => {
+    if (input.trim()) {
+      Dispatcher.dispatch(addTodo({ id: Date.now(), text: input }));
+      setInput('');
     }
-  }
-}
+  };
 
-const todoStore = new TodoStore();
-const allTodos = todoStore.getAllTodos();
-export default { todoStore, todos: allTodos };
+  const handleRemove = (id) => {
+    Dispatcher.dispatch(removeTodo(id));
+  };
+
+  return (
+    <div>
+      <input value={input} onChange={e => setInput(e.target.value)} />
+      <button onClick={handleAdd}>Add Todo</button>
+      <ul>
+        {todos.map(todo => (
+          <li key={todo.id}>
+            {todo.text}
+            <button onClick={() => handleRemove(todo.id)}>Remove</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}

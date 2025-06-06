@@ -1,12 +1,17 @@
-export const ADD_TODO = 'ADD_TODO';
-export const REMOVE_TODO = 'REMOVE_TODO';
+// ...existing code...
 
+export const ActionTypes = {
+  ADD_TODO: 'ADD_TODO',
+  REMOVE_TODO: 'REMOVE_TODO',
+};
+
+// ...existing code...
 export const addTodo = (todo) => ({
-  type: ADD_TODO,
+  type: ActionTypes.ADD_TODO,
   todo,
 });
 
-export const removeTodo = (index) => ({
-  type: REMOVE_TODO,
-  index,
+export const removeTodo = (id) => ({
+  type: ActionTypes.REMOVE_TODO,
+  id,
 });
