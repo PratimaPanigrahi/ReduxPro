@@ -7,8 +7,10 @@
   "scripts": {
     "build": "npm run build --prefix my-app",
     "start": "npm run start --prefix my-app",
-    "prestart": "npm run build"
-
+    "prestart": "npm run build",
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start"
    }
 }
 
